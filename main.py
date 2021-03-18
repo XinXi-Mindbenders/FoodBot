@@ -100,6 +100,8 @@ async def on_message(message):
             await message.channel.send(embed=embed)
         with open('data.pkl', 'wb') as file:
             pickle.dump(user_data, file)
+    if message.content.startswith(".help"):
+    	await message.channel.send("my name is Nathaniel and I hate help menues")
 
 
 keep_alive.keep_alive()
