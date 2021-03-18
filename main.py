@@ -69,6 +69,11 @@ async def on_message(message):
                                 value=f'Total number of pictures sent: {len(data)}',
                                 inline=True)
             await message.channel.send(embed=embed)
+    if message.content.startswith(".reset"):
+    	if len(args) > 0:
+    		pass #reset arg[0]
+        else:
+        	pass #reset all
 
 
 keep_alive.keep_alive()
