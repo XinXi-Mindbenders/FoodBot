@@ -39,8 +39,8 @@ async def on_message(message):
                 else:
                     user_data[message.author.name] = [(i.url, datetime.now())]
 
-                with open('data.pkl', 'wb') as f:
-                    pickle.dump(user_data, f)
+                with open('data.pkl', 'wb') as file:
+                    pickle.dump(user_data, file)
 
             except Exception:
                 continue
@@ -56,10 +56,11 @@ async def on_message(message):
                     if (datetime.now() - img_reg[1]).days == 0:
                         text_message += f'{count}. Message url: {img_reg[0]}\tTime stamp: {img_reg[1]}\n'
                         count += 1
+                if text_message == "":
+                    text_message = 'N/A'
                 embed.add_field(name=str(user),
                                 value=text_message,
                                 inline=True)
-
             await message.channel.send(embed=embed)
         elif args[0] == 'all':
             embed = discord.Embed(title="All Time Stats:", description="View the stats for all time\n\n",
@@ -75,14 +76,30 @@ async def on_message(message):
             if len(message.mentions) > 0:
                 for mem in message.mentions:
                     user_data[mem.name] = []
+                embed = discord.Embed(title="Success!",
+                                      color=2638993)
+                embed.add_field(name='Reset ✅',
+                                value=f'The user data has been reset for: {[member.name for member in message.mentions]}\n\n',
+                                inline=True)
+                await message.channel.send(embed=embed)
             else:
                 embed = discord.Embed(title="Error!",
-                                      description="Incorrect arguments passed. This function needs the user being reset to be mentioned.\n\nTip:\nYou can reset everyone using '.reset' with no arguments and you can reset multiple people by mentioning multiple people",
                                       color=2638993)
+                embed.add_field(name='Reset ❌',
+                                value='''Incorrect arguments passed. This function needs the user being reset to be mentioned.\n\nTip:\nYou can reset everyone using '.reset' with no arguments and you can reset multiple people by mentioning multiple people''',
+                                inline=True)
                 await message.channel.send(embed=embed)
         else:
             for user in user_data:
                 user_data[user] = []
+            embed = discord.Embed(title="Success!",
+                                  color=2638993)
+            embed.add_field(name='Reset ✅',
+                            value='The user data for all users has been reset.\n\n',
+                            inline=True)
+            await message.channel.send(embed=embed)
+        with open('data.pkl', 'wb') as file:
+            pickle.dump(user_data, file)
 
 
 keep_alive.keep_alive()
