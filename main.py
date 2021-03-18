@@ -59,7 +59,7 @@ async def on_message(message):
                 embed.add_field(name=str(user),
                                 value=text_message,
                                 inline=True)
-                
+
             await message.channel.send(embed=embed)
         elif args[0] == 'all':
             embed = discord.Embed(title="All Time Stats:", description="View the stats for all time\n\n",
@@ -69,11 +69,20 @@ async def on_message(message):
                                 value=f'Total number of pictures sent: {len(data)}',
                                 inline=True)
             await message.channel.send(embed=embed)
-    if message.content.startswith(".reset"):
-    	if len(args) > 0:
-    		pass #reset arg[0]
+    if message.content.startswith(".reset "):
+        args = message.content[7:]
+        if len(args) > 0:
+            if len(message.mentions) > 0:
+                for mem in message.mentions:
+                    user_data[mem.name] = []
+            else:
+                embed = discord.Embed(title="Error!",
+                                      description="Incorrect arguments passed. This function needs the user being reset to be mentioned.\n\nTip:\nYou can reset everyone using '.reset' with no arguments and you can reset multiple people by mentioning multiple people",
+                                      color=2638993)
+                await message.channel.send(embed=embed)
         else:
-        	pass #reset all
+            for user in user_data:
+                user_data[user] = []
 
 
 keep_alive.keep_alive()
