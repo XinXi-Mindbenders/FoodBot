@@ -83,6 +83,8 @@ async def on_message(message):
         else:
             for user in user_data:
                 user_data[user] = []
+    if message.content.startswith(".help"):
+    	await message.channel.send("my name is nathaniel and i hate help menues")
 
 
 keep_alive.keep_alive()
