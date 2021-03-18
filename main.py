@@ -34,7 +34,7 @@ async def on_message(message):
             try:
                 img = Image.open('out.bmp')
                 img.verify()
-                if message.author in user_data:
+                if message.author.name in user_data:
                     user_data[message.author.name].append((i.url, datetime.now()))
                 else:
                     user_data[message.author.name] = [(i.url, datetime.now())]
@@ -55,10 +55,11 @@ async def on_message(message):
                 for img_reg in data:
                     if (datetime.now() - img_reg[1]).days == 0:
                         text_message += f'{count}. Message url: {img_reg[0]}\tTime stamp: {img_reg[1]}\n'
+                        count += 1
                 embed.add_field(name=str(user),
                                 value=text_message,
                                 inline=True)
-                count += 1
+                
             await message.channel.send(embed=embed)
         elif args[0] == 'all':
             embed = discord.Embed(title="All Time Stats:", description="View the stats for all time\n\n",
