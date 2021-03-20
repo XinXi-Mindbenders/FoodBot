@@ -44,7 +44,7 @@ async def on_message(message):
 
             except Exception:
                 continue
-    if message.content.startswith(".stats "):
+    if message.content.startswith(".stats"):
         args = message.content[7:].split(' ')
         if args[0] == 'today':
             embed = discord.Embed(title="Today's Stats:", description="View the stats for the day\n\n",
@@ -70,7 +70,7 @@ async def on_message(message):
                                 value=f'Total number of pictures sent: {len(data)}',
                                 inline=True)
             await message.channel.send(embed=embed)
-    if message.content.startswith(".reset "):
+    if message.content.startswith(".reset"):
         args = message.content[7:]
         if len(args) > 0:
             if len(message.mentions) > 0:
@@ -101,7 +101,7 @@ async def on_message(message):
         with open('data.pkl', 'wb') as file:
             pickle.dump(user_data, file)
     if message.content.startswith(".help"):
-    	await message.channel.send("my name is Nathaniel and I hate help menues")
+        await message.channel.send("my name is Nathaniel and I hate help menues")
 
 
 keep_alive.keep_alive()
