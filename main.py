@@ -1,4 +1,3 @@
-import keep_alive
 from datetime import datetime
 import os
 from PIL import Image
@@ -127,5 +126,4 @@ async def on_message(message):
         await message.channel.send("my name is Nathaniel and I hate help menues")
 
 
-keep_alive.keep_alive()
 client.run(TOKEN)
