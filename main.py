@@ -71,7 +71,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
     if message.content.startswith(".reset"):
         args = message.content[7:].split(' ')
-        if len(args) > 0:
+        if len(args) > 1:
             if len(message.mentions) > 0:
                 for mem in message.mentions:
                     user_data[mem.name] = []
@@ -101,26 +101,25 @@ async def on_message(message):
             pickle.dump(user_data, file)
     if message.content.startswith(".minus"):
         args = message.content[7:].split(' ')
-    	if len(args) < 1:
-    		embed = discord.Embed(title="Error!", color=2638993)
-            embed.add_field(name='Reset ❌',
-                value='''Incorrect arguments passed. This function needs the user being reset to be mentioned.\n\nTip:\n do .minus <number> [mentions]''',
-                inline=True)
+        print(len(args))
+        if len(args) < 2:
+            embed = discord.Embed(title="Error!", color=2638993)
+            embed.add_field(name='Reset ❌', value='''Incorrect arguments passed. This function needs the user being 
+            reset to be mentioned.\n\nTip:\n do .minus <number> [mentions]''', inline=True)
             await message.channel.send(embed=embed)
         else:
-        	toRemove = int(args[0])
-        	for mem in message.mentions:
-        		if (len(user_data[mem.name]) <= toRemove):
-        			user_data[mem.name] = []
-        		else:
-                	user_data[mem.name] = user_data[mem.name][0:-1 * toRemove]
+            toRemove = int(args[0])
+            for mem in message.mentions:
+                if (len(user_data[mem.name]) <= toRemove):
+                    user_data[mem.name] = []
+                else:
+                    user_data[mem.name] = user_data[mem.name][0:-1 * toRemove]
             embed = discord.Embed(title="Success!",
                                   color=2638993)
             embed.add_field(name='Reset ✅',
                             value=f'The users {[member.name for member in message.mentions]} have lost their past {toRemove} entrys.\n\n',
                             inline=True)
             await message.channel.send(embed=embed)
-
 
     if message.content.startswith(".help"):
         await message.channel.send("my name is Nathaniel and I hate help menues")
