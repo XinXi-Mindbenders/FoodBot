@@ -71,7 +71,7 @@ async def on_message(message):
                                 inline=True)
             await message.channel.send(embed=embed)
     if message.content.startswith(".reset"):
-        args = message.content[7:]
+        args = message.content[7:].split(' ')
         if len(args) > 0:
             if len(message.mentions) > 0:
                 for mem in message.mentions:
@@ -101,7 +101,8 @@ async def on_message(message):
         with open('data.pkl', 'wb') as file:
             pickle.dump(user_data, file)
     if message.content.startswith(".minus"):
-    	if len(args) < 2:
+        args = message.content[7:].split(' ')
+    	if len(args) < 1:
     		embed = discord.Embed(title="Error!", color=2638993)
             embed.add_field(name='Reset ❌',
                 value='''Incorrect arguments passed. This function needs the user being reset to be mentioned.\n\nTip:\n do .minus <number> [mentions]''',
