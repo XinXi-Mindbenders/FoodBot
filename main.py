@@ -122,7 +122,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
 
     if message.content.startswith(".help"):
-        await message.channel.send("my name is Nathaniel and I hate help menues")
+        await message.channel.send("my name is Nathaniel and I absolutely adore help menus")
 
 
 client.run(TOKEN)
