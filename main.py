@@ -71,7 +71,7 @@ async def on_message(message):
             await message.channel.send(embed=embed)
     if message.content.startswith(".reset"):
         args = message.content[7:].split(' ')
-        with open('data.pkl', 'wb') as f:
+        with open(f'{datetime.now()}.pkl', 'wb') as f:
             pickle.dump(user_data, f)
         if len(args) > 1:
             if len(message.mentions) > 0:
