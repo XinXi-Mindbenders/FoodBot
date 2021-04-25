@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 from PIL import Image
-
+from random import *
 import discord
 from dotenv import load_dotenv
 import pickle
@@ -123,6 +123,18 @@ async def on_message(message):
 
     if message.content.startswith(".help"):
         await message.channel.send("my name is Nathaniel and I hate help menues")
+    if message.content.startswith(".tiebreak"):
+        leastFood = len(user_data[0])
+        toBreak = []
+        for user in user_data:
+            leastFood = min(leastFood, len(user_data[user]))
+        for user in user_data:
+        	if len(user_data[user]) == leastFood:
+        		toBreak.append(user)
+        embed = discord.Embed(title="Success!" ,color=2638993)
+        embed.add_field(name='Reset ✅', value=f'Out of the losers {[member.name for member in toBreak]}, {toBreak[random() * len(toBreak)]} has lost.\n\n', inline=True)
+        await message.channel.send(embed=embed)        
+
 
 
 client.run(TOKEN)
