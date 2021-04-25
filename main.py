@@ -38,8 +38,8 @@ async def on_message(message):
                 else:
                     user_data[message.author.name] = [(i.url, datetime.now())]
 
-                with open('data.pkl', 'wb') as file:
-                    pickle.dump(user_data, file)
+                with open('data.pkl', 'wb') as f:
+                    pickle.dump(user_data, f)
 
             except Exception:
                 continue
@@ -71,6 +71,8 @@ async def on_message(message):
             await message.channel.send(embed=embed)
     if message.content.startswith(".reset"):
         args = message.content[7:].split(' ')
+        with open('data.pkl', 'wb') as f:
+            pickle.dump(user_data, f)
         if len(args) > 1:
             if len(message.mentions) > 0:
                 for mem in message.mentions:
@@ -97,8 +99,8 @@ async def on_message(message):
                             value='The user data for all users has been reset.\n\n',
                             inline=True)
             await message.channel.send(embed=embed)
-        with open('data.pkl', 'wb') as file:
-            pickle.dump(user_data, file)
+        with open('data.pkl', 'wb') as f:
+            pickle.dump(user_data, f)
     if message.content.startswith(".minus"):
         args = message.content[7:].split(' ')
         print(len(args))
