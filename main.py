@@ -128,14 +128,21 @@ async def on_message(message):
     if message.content.startswith(".tiebreak"):
         leastFood = len(user_data[message.author.name])
         toBreak = []
-        for user in user_data:
+        print("here1")
+        for user, _ in user_data.items():
             leastFood = min(leastFood, len(user_data[user]))
-        for user in user_data:
+        for user, _ in user_data.items():
         	if len(user_data[user]) == leastFood:
         		toBreak.append(user)
+        print("here2")
         embed = discord.Embed(title="Success!" ,color=2638993)
-        embed.add_field(name='Tie Broken ✅', value=f'Out of the losers {[member.name for member in toBreak]}, {toBreak[random() * len(toBreak)]} has lost.\n\n', inline=True)
-        await message.channel.send(embed=embed)        
+        mems = [str(member) for member in toBreak]
+        print("here3")
+        loser = toBreak[int(random() * len(toBreak))]
+        print("here4")
+        embed.add_field(name='Tie Broken ✅', value=f'Out of the losers {mems}, {loser} has lost.\n\n', inline=True)
+        await message.channel.send(embed=embed)  
+        print("here5")      
 
 
 
